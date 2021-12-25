@@ -16,6 +16,7 @@ const DisplayInfo = (props) => {
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{info.location.city}</p>
         <p className="card-text">{info.location.country}</p>
+        <p className="card-text">Age:{info.dob.age}</p>
       </div>
     </div>
   );

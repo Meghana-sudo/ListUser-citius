@@ -7,6 +7,8 @@ const Home = () => {
   console.log(infos);
   const [country, setCountry] = useState("");
   const [gender, setGender] = useState("male and female");
+  const[uage,setAge]=useState(100);
+  const[maxAge,setmaxAge]=useState(0);
 
   useEffect(() => {
     fetch(
@@ -14,7 +16,29 @@ const Home = () => {
     )
       .then((res) => res.json())
       .then((data) => setInfos(data.results));
-  }, [country, gender]);
+  }, [country, gender,uage]);
+
+
+  console.log(uage)
+
+  function changeAge(){
+    setmaxAge(18)
+    setAge(0)
+  }
+
+  function changeAgeTeen(){
+    setAge(30)
+    setmaxAge(18)
+  }
+
+  function changeAgeDefault(){
+    setAge(100)
+  }
+
+  function changeAgeAdult(){
+    setAge(100)
+    setmaxAge(30)
+  }
 
   return (
     <section className="bg-secondary">
@@ -51,22 +75,25 @@ const Home = () => {
             </div>
           </div>
           <div className="col-md-4">
-            <button className="btn btn-outline-light mx-2 ">All</button>
-            <button className="btn btn-outline-light ">0-18</button>
-            <button className="btn btn-outline-light mx-2">18-30</button>
+            <button className="btn btn-outline-light mx-2" onClick={changeAgeDefault}>All</button>
+            <button className="btn btn-outline-light mx-2" onClick={changeAge}>0-18</button>
+            <button className="btn btn-outline-light mx-2" onClick={changeAgeTeen}>18-30</button>
+            <button className="btn btn-outline-light mx-2" onClick={changeAgeAdult}>30+</button>
           </div>
           <div className="col-md-4">
             <h5 className="mx-4 text-white">
-              Displaying {infos.length} for{" "}
+              Displaying  for{" "}
               <span className="text-warning text-capitalize">{gender}</span>
             </h5>
           </div>
         </div>
 
         <div className="row">
-          {infos.map((info) => (
+       
+          {
+            infos.filter((item)=>item.dob.age<=uage&& item.dob.age>maxAge).map((info) => (
             <DisplayInfo info={info} />
-          ))}
+            ))}
         </div>
       </div>
     </section>
